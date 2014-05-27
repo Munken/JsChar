@@ -13,7 +13,9 @@ classApp.controller('classifyCtrl', function ($scope, $http) {
             _.each(x.s, function(p) {
                 p.x = JSON.parse(p.x);
                 p.y = JSON.parse(p.y);
-            })
+            });
+
+            if (x.u.length > 1) x.u = JSON.parse("\"" + x.u + "\"");
         });
         comp = new PathComparator2(data);
     });
