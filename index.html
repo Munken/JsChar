@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html ng-app="trainerApp">
+<head lang="en">
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.10/angular.min.js"></script>
+    <script src="DTW.js"></script>
+    <script src="PathComparator2.js"></script>
+    <script src="PathBuilder2.js"></script>
+    <script src="controller/classifyCtl.js"></script>
+
+    <title></title>
+</head>
+<body ng-controller="classifyCtrl">
+
+<div id="wrapper">
+    <div id="left">
+        <div id="symTrainer">
+            <canvas id="mCanvas" width="400" height="400" ng-mouseup="check()"></canvas>
+            <br>
+            <button ng-click="clear()">Clear</button>
+            <button ng-click="trainLast()" ng-disabled="!last">Train {{last.match.u}}</button>
+        </div>
+    </div>
+
+    <div id="right">
+        <ul class="symbols">
+            <li ng-repeat="symbol in matches">
+                <div class="symbolsentry">
+                    <div class="symbol">{{symbol.match.u}}</div>
+                    <div class="info">
+                        <span class="score">Score: {{symbol.dtw}}</span>
+                        <br><br>
+                        <code class="command">{{symbol.match.L}}</code>
+                        <br><br>
+                    <span class="texmode" ng-switch="symbol.match.m">
+                    <div ng-switch-when="0">Textmode</div>
+                    <div ng-switch-when="1">Mathmode</div>
+                    <div ng-switch-when="2">Textmode & Mathmode</div>
+                    </span>
+                    </div>
+                    <div class="thumbs">
+                        <img src="http://www.clipartbest.com/cliparts/aiq/eL5/aiqeL5aeT.png" width="30px"
+                             ng-click="train(symbol)">
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <button ng-hide="!matches.length || allMatches == matches" ng-click="matches = allMatches">Show all</button>
+    </div>
+</div>
+</body>
+</html>

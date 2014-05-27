@@ -1,0 +1,46 @@
+<html ng-app="trainerApp">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.10/angular.min.js"></script>
+    <script src="controller/tController.js"></script>
+    <script type="text/javascript" src="DTW.js"></script>
+    <script src="PathBuilder2.js"></script>
+</head>
+<body ng-controller="trainerCtrl">
+
+
+<div id="left">
+    <div id="symTrainer">
+        Train: {{training.unicode}}
+        <br>
+        <canvas id="mCanvas" width="400" height="400"></canvas>
+        <br>
+        <button ng-click="clear();">Clear</button>
+        <button ng-click="train();">Train {{training.unicode}}</button>
+    </div>
+</div>
+<div id="right">
+    <ul class="symbols">
+        <li ng-repeat="symbol in symbols" ng-click="switchSym(symbol)">
+            <div class="symbolsentry">
+                <div class="symbol">{{symbol.unicode}}</div>
+                <div class="info">
+                    <code class="command">{{symbol.latex}}</code>
+                    <br>{{symbol.idx}}<br>
+                <span class="texmode" ng-switch="symbol.mode">
+                    <div ng-switch-when="0">Textmode</div>
+                    <div ng-switch-when="1">Mathmode</div>
+                    <div ng-switch-when="2">Textmode & Mathmode</div>
+                </span>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+
+</body>
+</html>
