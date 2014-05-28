@@ -17,6 +17,8 @@
 <body ng-controller="classifyCtrl">
 
 <div id="wrapper">
+<div class="header">jsUniTeX - LaTeX Unicode classifier</div>
+<br>
     <div id="left">
         <div id="symTrainer">
             <canvas id="mCanvas" width="400" height="400" ng-mouseup="check()"></canvas>
@@ -27,12 +29,13 @@
     </div>
 
     <div id="right">
+        <!--<input type="text" ng-model="fltr">-->
         <ul class="symbols">
             <li ng-repeat="symbol in matches">
                 <div class="symbolsentry">
                     <div class="symbol">{{symbol.match.u}}</div>
                     <div class="info">
-                        <span class="score">Score: {{symbol.dtw}}</span>
+                        <span class="score">Score: {{symbol.dtw | number:2}}</span>
                         <br><br>
                         <code class="command">{{symbol.match.L}}</code>
                         <br><br>
@@ -42,9 +45,9 @@
                     <div ng-switch-when="2">Textmode & Mathmode</div>
                     </span>
                     </div>
-                    <div class="thumbs">
-                        <img src="http://www.clipartbest.com/cliparts/aiq/eL5/aiqeL5aeT.png" width="30px"
-                             ng-click="train(symbol)">
+                    <div class="thumbs" ng-click="train(symbol)">
+                        <img src="http://www.clipartbest.com/cliparts/aiq/eL5/aiqeL5aeT.png" width="30px">
+                        <!--<a href="#">&#x1f44d;</a>-->
                     </div>
                 </div>
             </li>

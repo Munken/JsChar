@@ -1,5 +1,5 @@
 <?php
-require "../../../conf/db.php";
+require "../../conf/db.php";
 $con=mysqli_connect($loc,$user,$pass,$db);
 mysqli_set_charset($con,"utf8");
 if (mysqli_connect_errno()) {
