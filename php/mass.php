@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL ^ E_NOTICE);
 
 
-require "../../conf/db.php";
+require "../passwd/db.php";
 $con=mysqli_connect($loc,$user,$pass,$db);
 mysqli_set_charset($con,"utf8");
 if (mysqli_connect_errno()) {
