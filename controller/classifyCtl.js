@@ -17,6 +17,7 @@ classApp.controller('classifyCtrl', ["$scope", "$http", "$interval", function ($
 
             if (x.u.length > 1) x.u = JSON.parse("\"" + x.u + "\"");
         });
+        console.log(data);
         comp = new PathComparator2(data);
     });
 

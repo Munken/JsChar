@@ -25,12 +25,14 @@ class PathBuilder2 {
 
         var fStop = function (e) {
             e.preventDefault();
+            enable_scroll();
             down = false;
         };
         this.canvas.mouseup(fStop);
         can.addEventListener("touchend", fStop, false);
 
         var fDown = (e) => {
+            disable_scroll();
             e.preventDefault();
             down = true;
 
@@ -53,6 +55,15 @@ class PathBuilder2 {
         };
         this.canvas.mousemove(fMove);
         can.addEventListener("touchmove", fMove, true);
+
+
+        function disable_scroll() {
+            $('body').bind('touchmove', function(e){e.preventDefault()});
+        }
+
+        function enable_scroll() {
+            $('body').unbind('touchmove');
+        }
     }
 
     x0(e) {

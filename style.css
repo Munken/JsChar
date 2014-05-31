@@ -18,7 +18,7 @@
 
 body {
     /*font-family: Futura, "Trebuchet MS", Arial, sans-serif;*/
-    font-family: 'Yanone Kaffeesatz', sans-serif;
+     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
 #wrapper {
@@ -71,7 +71,7 @@ ul.symbols li {
     width: 150px;
     font-size: 3.5em;
     /*font-family: CMSY10, CMEX10, Symbol, Times,sans-serif;*/
-    font-family: MJX_Math, MJX_Main;
+    font-family: MJX_Math, MJX_Main, "Palatino Linotype", "Book Antiqua", Palatino, serif;
 }
 
 .command {
@@ -90,6 +90,8 @@ ul.symbols li {
     -o-transform: scale(-1, 1);
     -ms-transform: scale(-1, 1);
     transform: scale(-1, 1);
+
+    font-family: "Segoe UI";
 }
 
 .thumbs a {

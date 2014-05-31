@@ -1,7 +1,19 @@
 CACHE MANIFEST
+
+#Verion 0.00000003
+
+NETWORK:
+*
+
+CACHE:
 /DTW.js
 /PathComparator2.js
 /PathBuilder2.js
 /style.css
 /controller/classifyCtl.js
 /php/dumper.php
+
+http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz
+http://code.jquery.com/jquery-1.11.1.min.js
+http://underscorejs.org/underscore-min.js
+https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.10/angular.min.js

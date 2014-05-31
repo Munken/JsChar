@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html ng-app="trainerApp" manifest="/textracer.manifest">
+<html ng-app="trainerApp">
+<!--manifest="/textracer.manifest"-->
 <head lang="en">
     <title>TeχTracer</title>
-
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta charset="UTF-8">
     <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="style.css"/>
@@ -21,7 +22,7 @@
                 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-51520675-1', 'k-munch.dk');
+        ga('create', 'UA-51520675-1', 'textracer.dk');
         ga('send', 'pageview');
 
     </script>
@@ -43,7 +44,7 @@
 
         <h2>What is this?</h2>
         This an attempt to create a classifier for both LaTeX and unicode symbols.
-        The work is heavily inspired by Daniel Kirsch's visions for <a href="htpp:7/detexify.kirelabs.org">DeTeXify<sup>3</sup></a>.
+        The work is heavily inspired by Daniel Kirsch's visions for <a href="htpp://detexify.kirelabs.org">DeTeXify<sup>3</sup></a>.
         All calculation are made on the client in JavaScript.
 
         <h2>How does it work?</h2>
@@ -56,16 +57,16 @@
     </div>
 
     <div id="right">
-        <!--<input type="text" ng-model="fltr">-->
+        <input type="text" ng-model="fltr">
         <ul class="symbols">
-            <li ng-repeat="symbol in matches">
-            <!--<li ng-repeat="symbol in matches | filter:fltr">-->
+            <!--<li ng-repeat="symbol in matches">-->
+            <li ng-repeat="symbol in matches | filter:fltr">
                 <div class="symbolsentry">
                     <div class="symbol">{{symbol.match.u}}</div>
                     <div class="info">
                         <span class="score">Score: {{symbol.dtw | number:2}}</span>
                         <br><br>
-                        <code class="command">{{symbol.match.L}}</code>
+                        <code class="command">\{{symbol.match.L}}</code>
                         <br><br>
                     <span class="texmode" ng-switch="symbol.match.m">
                     <div ng-switch-when="0">Textmode</div>
