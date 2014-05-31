@@ -32,13 +32,12 @@ body {
 
 #left {
     float: left;
-    padding: 1px;
-    width: 460px;
+    padding-right: 20px;
+    width: 400px;
 }
 
 #right {
     float: left;
-    margin: 0 0 10px 0;
     width: 539px;
     display: inline;
     position: relative;
@@ -49,7 +48,7 @@ body {
 }
 
 ul.symbols li {
-    border-top: 1px dotted gray;
+    border-top: 2px dotted gray;
     display: block;
     list-style: none;
     margin: 0;
@@ -61,29 +60,29 @@ ul.symbols li {
     display: table-cell;
     vertical-align: middle;
     text-align: left;
-    width: 300px;
-    padding: 0 0 0 1em;
+    width: 250px;
+    padding-left: 1em;
 }
 
 .symbol {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
-    width: 170px;
-    font-size: 4em;
+    width: 150px;
+    font-size: 3.5em;
     /*font-family: CMSY10, CMEX10, Symbol, Times,sans-serif;*/
     font-family: MJX_Math, MJX_Main;
 }
 
 .command {
-    font-size: 2em;
+    font-size: 1.5em;
 }
 
 .thumbs {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
-    width: 100px;
+    width: 50px;
     font-size: 3.5em;
 
     -moz-transform: scale(-1, 1);
@@ -101,7 +100,7 @@ ul.symbols li {
 
 
 #symTrainer {
-    position: fixed;
+    /*position: fixed;*/
     /*top: 5em;*/
     /*left: 100px;*/
 }

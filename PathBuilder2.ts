@@ -12,39 +12,47 @@ class PathBuilder2 {
     private canvas;
     private ctx;
 
-    constructor(id:String) {
+    constructor(id:string) {
         this.canvas = $("#" + id);
         this.ctx = (<HTMLCanvasElement> this.canvas[0]).getContext("2d");
 
         this.ctx.lineWidth = 2;
         this.ctx.lineJoin = "round";
 
+        var can : any = document.getElementById(id);
 
         var down:boolean = false;
-        this.canvas.mouseup(function () {
+
+        var fStop = function (e) {
+            e.preventDefault();
             down = false;
-        });
+        };
+        this.canvas.mouseup(fStop);
+        can.addEventListener("touchend", fStop, false);
 
-
-        this.canvas.mousedown((e) => {
+        var fDown = (e) => {
+            e.preventDefault();
             down = true;
 
             this.ctx.beginPath();
             var x = this.x0(e), y = this.y0(e);
             this.ctx.moveTo(x, y);
             this.pat.add(x, y);
-        });
+        };
+        this.canvas.mousedown(fDown);
+        can.addEventListener("touchstart", fDown, false);
 
-        this.canvas.mousemove((e) => {
+        var fMove = (e) => {
+            e.preventDefault();
             if (!down) return;
 
             var x = this.x0(e), y = this.y0(e);
             this.ctx.lineTo(x, y);
             this.pat.add(x, y);
             this.ctx.stroke();
-        });
-
-
+        };
+        this.canvas.mousemove(fMove);
+        can.addEventListener("touchmove", fMove, true);
     }
 
     x0(e) {

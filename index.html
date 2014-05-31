@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html ng-app="trainerApp">
 <head lang="en">
+    <title>TeχTracer</title>
+
     <meta charset="UTF-8">
     <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="style.css"/>
@@ -12,7 +14,17 @@
     <script src="PathBuilder2.js"></script>
     <script src="controller/classifyCtl.js"></script>
 
-    <title>TeχTracer</title>
+<!--Google analytics-->
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-51520675-1', 'k-munch.dk');
+        ga('send', 'pageview');
+
+    </script>
 </head>
 <body ng-controller="classifyCtrl">
 
@@ -24,14 +36,30 @@
             <canvas id="mCanvas" width="400" height="400" ng-mouseup="check()"></canvas>
             <br>
             <button ng-click="clear()">Clear</button>
-            <button ng-click="trainLast()" ng-disabled="!last">Train {{last.match.u}}</button>
+            <button ng-click="check()" style="float:right">Check</button>
         </div>
+
+        <!--<button ng-click="trainLast()" ng-disabled="!last">Train {{last.match.u}}</button>-->
+
+        <h2>What is this?</h2>
+        This an attempt to create a classifier for both LaTeX and unicode symbols.
+        The work is heavily inspired by Daniel Kirsch's visions for <a href="htpp:7/detexify.kirelabs.org">DeTeXify<sup>3</sup></a>.
+        All calculation are made on the client in JavaScript.
+
+        <h2>How does it work?</h2>
+        It is simple. Just draw and click &#x1f44d; on the correct.
+
+        <h2>Symbol X is not recognized</h2>
+        If the symbol is missing then drop me a <a href="mailto:mm.munk+textracer@gmail.com">mail</a>.
+        <br>
+        If your drawing is just not recognized then you can train it yourself <a href="Trainer.html">here</a>.
     </div>
 
     <div id="right">
-        <input type="text" ng-model="fltr">
+        <!--<input type="text" ng-model="fltr">-->
         <ul class="symbols">
-            <li ng-repeat="symbol in matches | filter:fltr">
+            <li ng-repeat="symbol in matches">
+            <!--<li ng-repeat="symbol in matches | filter:fltr">-->
                 <div class="symbolsentry">
                     <div class="symbol">{{symbol.match.u}}</div>
                     <div class="info">
@@ -53,7 +81,7 @@
             </li>
         </ul>
 
-        <button ng-hide="!matches.length || allMatches == matches" ng-click="matches = allMatches">Show all</button>
+        <button ng-hide="!matches.length || allMatches == matches" ng-click="matches = allMatches" style="float:right">Show all</button>
     </div>
 </div>
 </body>
