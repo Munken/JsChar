@@ -1,0 +1,12 @@
+// Move traces
+INSERT INTO `traces` ( `charIdx` , `x` , `y` )
+SELECT 315 , x, y
+FROM traces
+WHERE charIdx =104
+
+
+
+INSERT INTO `traces` ( `charIdx` , `x` , `y` )
+SELECT (select idx from chars where latex = '\\sim') , x, y
+FROM traces
+WHERE charIdx = (select idx from chars where latex = '\\thicksim')

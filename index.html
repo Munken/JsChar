@@ -2,7 +2,7 @@
 <html ng-app="trainerApp">
 <head lang="en">
     <meta charset="UTF-8">
-
+    <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="style.css"/>
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://underscorejs.org/underscore-min.js"></script>
@@ -12,12 +12,12 @@
     <script src="PathBuilder2.js"></script>
     <script src="controller/classifyCtl.js"></script>
 
-    <title></title>
+    <title>TeχTracer</title>
 </head>
 <body ng-controller="classifyCtrl">
 
 <div id="wrapper">
-<div class="header">jsUniTeX - LaTeX Unicode classifier</div>
+<div class="header">TeχTracer</div>
 <br>
     <div id="left">
         <div id="symTrainer">
@@ -29,9 +29,9 @@
     </div>
 
     <div id="right">
-        <!--<input type="text" ng-model="fltr">-->
+        <input type="text" ng-model="fltr">
         <ul class="symbols">
-            <li ng-repeat="symbol in matches">
+            <li ng-repeat="symbol in matches | filter:fltr">
                 <div class="symbolsentry">
                     <div class="symbol">{{symbol.match.u}}</div>
                     <div class="info">
@@ -46,8 +46,8 @@
                     </span>
                     </div>
                     <div class="thumbs" ng-click="train(symbol)">
-                        <img src="http://www.clipartbest.com/cliparts/aiq/eL5/aiqeL5aeT.png" width="30px">
-                        <!--<a href="#">&#x1f44d;</a>-->
+                        <!--<img src="http://www.clipartbest.com/cliparts/aiq/eL5/aiqeL5aeT.png" width="30px">-->
+                        <a href="#">&#x1f44d;</a>
                     </div>
                 </div>
             </li>

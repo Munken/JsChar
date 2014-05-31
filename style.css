@@ -1,5 +1,24 @@
+@font-face {
+    font-family: 'MJX_Math';
+    src: url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/eot/MathJax_Math-Italic.eot'); /* IE9 Compat Modes */
+    src: url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/eot/MathJax_Math-Italic.eot?iefix') format('eot'),
+    url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/woff/MathJax_Math-Italic.woff')  format('woff'),
+    url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/otf/MathJax_Math-Italic.otf')  format('opentype'),
+    url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/svg/MathJax_Math-Italic.svg#MathJax_Math-Italic') format('svg');
+}
+
+@font-face {
+    font-family: 'MJX_Main';
+    src: url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/eot/MathJax_Main-Regular.eot'); /* IE9 Compat Modes */
+    src: url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/eot/MathJax_Main-Regular.eot?iefix') format('eot'),
+    url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/woff/MathJax_Main-Regular.woff')  format('woff'),
+    url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/otf/MathJax_Main-Regular.otf')  format('opentype'),
+    url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/svg/MathJax_Main-Regular.svg#MathJax_Main-Regular') format('svg');
+}
+
 body {
-    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+    /*font-family: Futura, "Trebuchet MS", Arial, sans-serif;*/
+    font-family: 'Yanone Kaffeesatz', sans-serif;
 }
 
 #wrapper {
@@ -50,9 +69,10 @@ ul.symbols li {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
-    width: 100px;
+    width: 170px;
     font-size: 4em;
-    font-family: CMSY10, CMEX10, Symbol, Times,sans-serif;
+    /*font-family: CMSY10, CMEX10, Symbol, Times,sans-serif;*/
+    font-family: MJX_Math, MJX_Main;
 }
 
 .command {

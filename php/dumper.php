@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: text/html; charset=utf-8');
 require "../../conf/db.php";
 $con=mysqli_connect($loc,$user,$pass,$db);
 mysqli_set_charset($con,"utf8");
