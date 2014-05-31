@@ -1,6 +1,6 @@
 var classApp = angular.module('trainerApp', []);
-
-classApp.controller('classifyCtrl', function ($scope, $http) {
+//
+classApp.controller('classifyCtrl', ["$scope", "$http", "$interval", function ($scope, $http, $interval) {
 
     var comp;
     $scope.last = null;
@@ -9,6 +9,8 @@ classApp.controller('classifyCtrl', function ($scope, $http) {
     $scope.allMatches = [];
 
     $http.get('php/dumper.php').success(function(data) {
+        console.log(data);
+
         _.each(data, function(x) {
             _.each(x.s, function(p) {
                 p.x = JSON.parse(p.x);
@@ -26,19 +28,26 @@ classApp.controller('classifyCtrl', function ($scope, $http) {
     };
     $scope.trainLast = function() {
         $scope.train($scope.last);
-    }
+    };
     $scope.train = function(x) {
         if (builder.path().x <= 0) return;
         $scope.last = x;
         builder.saveToDB(x.match.i);
         comp.add(x, builder.morphed());
         builder.clear();
-    }
+    };
 
     $scope.check = function() {
-        $('html,body').scrollTop(0);
-        $scope.allMatches = comp.checkAll(builder.morphed());
+        var stop = $interval(function () {
+            if (!angular.isDefined(comp)) return;
+
+            $('html,body').scrollTop(0);
+            $scope.allMatches = comp.checkAll(builder.morphed());
 //        $scope.matches = $scope.allMatches;
-        $scope.matches = $scope.allMatches.slice(0, 10);
-    }
-});
+            $scope.matches = $scope.allMatches.slice(0, 10);
+            $interval.cancel(stop);
+        }, 200);
+    };
+
+
+}]);
