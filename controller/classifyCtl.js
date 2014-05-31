@@ -9,8 +9,6 @@ classApp.controller('classifyCtrl', ["$scope", "$http", "$interval", function ($
     $scope.allMatches = [];
 
     $http.get('php/dumper.php').success(function(data) {
-        console.log(data);
-
         _.each(data, function(x) {
             _.each(x.s, function(p) {
                 p.x = JSON.parse(p.x);
