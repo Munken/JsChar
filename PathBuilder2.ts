@@ -24,16 +24,16 @@ class PathBuilder2 {
         var down:boolean = false;
 
         var fStop = function (e) {
-            e.preventDefault();
             enable_scroll();
             down = false;
         };
         this.canvas.mouseup(fStop);
+        this.canvas.mouseleave(fStop);
         can.addEventListener("touchend", fStop, false);
+        can.addEventListener("touchleave", fStop, false);
 
         var fDown = (e) => {
             disable_scroll();
-            e.preventDefault();
             down = true;
 
             this.ctx.beginPath();
@@ -54,24 +54,26 @@ class PathBuilder2 {
             this.ctx.stroke();
         };
         this.canvas.mousemove(fMove);
-        can.addEventListener("touchmove", fMove, true);
+        can.addEventListener("touchmove", fMove, false);
 
 
         function disable_scroll() {
-            $('body').bind('touchmove', function(e){e.preventDefault()});
+            $('document').bind('touchmove', function(e){e.preventDefault(); e.stopImmediatePropagation()});
         }
 
         function enable_scroll() {
-            $('body').unbind('touchmove');
+            $('document').unbind('touchmove');
         }
     }
 
     x0(e) {
-        return e.pageX - this.canvas.offset().left;
+        var pageX = (!e.targetTouches) ? e.pageX : e.targetTouches[0].pageX;
+        return pageX - this.canvas.offset().left;
     }
 
     y0(e) {
-        return e.pageY - this.canvas.offset().top;
+        var pageY = (!e.targetTouches) ? e.pageY : e.targetTouches[0].pageY;
+        return pageY - this.canvas.offset().top;
     }
 
     clear() {
