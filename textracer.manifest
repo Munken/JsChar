@@ -1,17 +1,18 @@
 CACHE MANIFEST
 
-#Version 3
+#Version 5
 
 NETWORK:
 *
 
 CACHE:
-/DTW.js
-/PathComparator2.js
-/PathBuilder2.js
+#/DTW.js
+#/PathComparator2.js
+#/PathBuilder2.js
 /style.css
-/controller/classifyCtl.js
-/php/dumper.php
+#/controller/classifyCtl2.js
+#/DbWrapper.js
+/min.js
 
 
 http://code.jquery.com/jquery-1.11.1.min.js

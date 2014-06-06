@@ -44,8 +44,7 @@ module DbWrapper {
 
     export function addBasis(samples : ServerSample2[]) {
         console.log("Adding basis!");
-        ensureDB();
-        if (!!db) {
+        waitWrap(function() {
             console.log("Adding elements!");
             var transaction = db.transaction(OBJ_STORE, "readwrite");
             var store = transaction.objectStore(OBJ_STORE);
@@ -53,19 +52,13 @@ module DbWrapper {
             _.each(samples, function (x) {
                 store.add(x)
             });
-        }
-        else {
-            dbWaiters.push(function() {
-                addBasis(samples);
-            })
-        }
+        });
     }
 
     export function addExtra(samples) {
         if (samples.length == 0) return;
 
-        ensureDB();
-        if (!!db) {
+        waitWrap(function() {
             console.log("Adding extra");
             var transaction = db.transaction(OBJ_STORE, "readwrite");
             var store = transaction.objectStore(OBJ_STORE);
@@ -82,15 +75,11 @@ module DbWrapper {
 
 
             transaction.oncomplete = function() {setIndex(Math.max(max, lastIdx));}
-        } else {
-            dbWaiters.push(function() {
-                DbWrapper.addExtra(samples);
-            })
-        }
+        });
     }
 
     export function cursor(fcn : (s: ServerSample2[]) => void) {
-        if (db) {
+        waitWrap(function() {
             var transaction = db.transaction(OBJ_STORE, "readonly");
             var objectStore = transaction.objectStore(OBJ_STORE);
 
@@ -107,10 +96,15 @@ module DbWrapper {
                     fcn(result);
                 }
             }
+        })
+    }
+
+    function waitWrap(fcn : () => void) {
+        ensureDB();
+        if (!!db) {
+            fcn();
         } else {
-            dbWaiters.push(function () {
-                DbWrapper.cursor(fcn);
-            });
+            dbWaiters.push(fcn);
         }
     }
 
@@ -124,6 +118,9 @@ module DbWrapper {
 
     function ensureDB() {
         if (dbCreated) return;
+
+        if (!isDbSupported) alert("No DB support !");
+
         if (offline && isDbSupported) {
             dbCreated = true;
             var openRequest = indexedDB.open(TABLE, 2);
