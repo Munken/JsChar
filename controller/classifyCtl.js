@@ -9,13 +9,14 @@ classApp.controller('classifyCtrl', ["$scope", "$http", "$interval", function ($
     $scope.allMatches = [];
 
     $http.get('php/dumper.php').success(function(data) {
-        _.each(data, function(x) {
+        _.each(data.data, function(x) {
             _.each(x.s, function(p) {
                 p.x = JSON.parse(p.x);
                 p.y = JSON.parse(p.y);
             });
 
             if (x.u.length > 1) x.u = JSON.parse("\"" + x.u + "\"");
+            x.L = "\\".concat(x.L);
         });
         console.log(data);
         comp = new PathComparator2(data);

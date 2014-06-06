@@ -39,7 +39,7 @@ class PathComparator2 {
 }
 
 interface CheckResult2 {
-    match : ServerSample;
+    match : ServerSample2;
     dtw : number;
 }
 

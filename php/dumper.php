@@ -28,7 +28,10 @@ while($row = $result -> fetch_array(MYSQLI_ASSOC)) {
     array_push($return_arr, $array);
 }
 
-echo json_encode($return_arr);
+$result = mysqli_query($con,"SELECT max(idx) FROM traces");
+$row = $result -> fetch_array();
+
+echo json_encode(array("data" => $return_arr, "hI" => $row[0]));
 
 
 mysqli_close($con);

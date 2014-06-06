@@ -7,6 +7,12 @@ WHERE charIdx =104
 
 
 INSERT INTO `traces` ( `charIdx` , `x` , `y` )
-SELECT (select idx from chars where latex = '\\sim') , x, y
+SELECT (select idx from chars where latex = 'sim') , x, y
 FROM traces
-WHERE charIdx = (select idx from chars where latex = '\\thicksim')
+WHERE charIdx = (select idx from chars where latex = 'thicksim')
+
+
+SELECT *
+FROM chars
+INNER JOIN traces ON chars.idx = traces.charIdx
+ORDER BY chars.idx

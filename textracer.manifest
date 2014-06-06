@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-#Verion 0.00000003
+#Version 2
 
 NETWORK:
 *
@@ -13,7 +13,19 @@ CACHE:
 /controller/classifyCtl.js
 /php/dumper.php
 
-http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz
+
 http://code.jquery.com/jquery-1.11.1.min.js
 http://underscorejs.org/underscore-min.js
-https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.10/angular.min.js
+http://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.10/angular.min.js
+
+#/Fonts/MathJax_Math-Italic.eot
+#/Fonts/MathJax_Math-Italic-ie.eot
+#/Fonts/MathJax_Math-Italic.otf
+#/Fonts/MathJax_Math-Italic.svg
+/Fonts/MathJax_Math-Italic.woff
+
+#/Fonts/MathJax_Main-Regular.eot
+#/Fonts/MathJax_Main-Regular-ie.eot
+#/Fonts/MathJax_Main-Regular.otf
+#/Fonts/MathJax_Main-Regular.svg
+/Fonts/MathJax_Main-Regular.woff
