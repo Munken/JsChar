@@ -60,14 +60,14 @@ classApp.controller('classifyCtrl', ["$scope", "$http", "$interval", function ($
         });
 
         $http({
-            method: "POST",
+            method: "GET",
             url: "/php/rawtrace.php",
             params: {
-                LOW_IDX : 4050
+                LOW_IDX : DbWrapper.lastIdx
             }
-        }).success(function(data) {
-                console.log(data);
-            });
+        }).success(function (data) {
+            console.log(data);
+        });
     }
     else {
         $http.get('php/dumper.php').success(function (data) {
@@ -81,9 +81,12 @@ classApp.controller('classifyCtrl', ["$scope", "$http", "$interval", function ($
                 if (x.u.length > 1) x.u = JSON.parse("\"" + x.u + "\"");
                 x.L = "\\".concat(x.L);
             });
-            DbWrapper.addBasis(data.data);
-            DbWrapper.setIndex(data.hI);
             comp = new PathComparator2(data);
+
+            if (DbWrapper.offline) {
+                DbWrapper.addBasis(data.data);
+                DbWrapper.setIndex(data.hI);
+            }
         });
     }
 
@@ -95,7 +98,7 @@ classApp.controller('classifyCtrl', ["$scope", "$http", "$interval", function ($
         $scope.train($scope.last);
     };
     $scope.train = function (x) {
-        if (builder.path().x <= 0) return;
+        if (builder.path().x <= 10) return;
         $scope.last = x;
         builder.saveToDB(x.match.i);
         comp.add(x, builder.morphed());
