@@ -52,6 +52,8 @@ module DbWrapper {
             _.each(samples, function (x) {
                 store.add(x)
             });
+
+            transaction.oncomplete = function() {alert("Completo!");}
         });
     }
 
@@ -137,12 +139,16 @@ module DbWrapper {
                 console.log("Success!");
                 db = e.target.result;
 
+//                cursor(function(x) {alert(x.length)});
+
                 _.each(dbWaiters, function(fcn) {fcn();});
             };
 
             openRequest.onerror = function (e) {
                 console.log("Error");
                 console.dir(e);
+
+                alert("Arg fejl !");
             };
 
         }

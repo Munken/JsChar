@@ -59,8 +59,12 @@ classApp.controller('classifyCtrl', ["$scope", "$http", "$interval", function ($
     function loadDataFromStorage() {
         DbWrapper.cursor(function (data) {
             console.log("Loaded trace db: " + data.length);
-            console.log(data);
+//            console.log(data);
             comp = new PathComparator2(data);
+
+            $scope.N = data.length;
+
+            alert("Stor " + $scope.N);
         });
 
         $http({
@@ -70,6 +74,8 @@ classApp.controller('classifyCtrl', ["$scope", "$http", "$interval", function ($
                 LOW_IDX: DbWrapper.lastIdx
             }
         }).success(function (data) {
+            console.log("Extra:");
+            console.log(data);
             DbWrapper.addExtra(data);
         });
     }
@@ -86,6 +92,8 @@ classApp.controller('classifyCtrl', ["$scope", "$http", "$interval", function ($
                 if (x.u.length > 1) x.u = JSON.parse("\"" + x.u + "\"");
                 x.L = "\\".concat(x.L);
             });
+            $scope.N = data.data.length;
+            alert("PHP " + $scope.N);
             comp = new PathComparator2(data.data);
 
             cachedIndex = data.hI;
