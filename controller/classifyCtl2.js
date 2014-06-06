@@ -58,6 +58,16 @@ classApp.controller('classifyCtrl', ["$scope", "$http", "$interval", function ($
             console.log("Loaded trace db: " + data.length);
             comp = new PathComparator2(data);
         });
+
+        $http({
+            method: "POST",
+            url: "/php/rawtrace.php",
+            params: {
+                LOW_IDX : 4050
+            }
+        }).success(function(data) {
+                console.log(data);
+            });
     }
     else {
         $http.get('php/dumper.php').success(function (data) {
