@@ -1,50 +1,5 @@
 var classApp = angular.module('trainerApp', []);
 //
-function createDB(data) {
-    var idbSupported = false;
-    var db;
-    const OBJ_STORE = "traces";
-    const TABLE = "traceDB";
-
-    if ("indexedDB" in window) {
-        idbSupported = true;
-    }
-
-    if (!idbSupported) {
-        alert("IDB not supported!");
-    } else {
-        var openRequest = indexedDB.open(TABLE, 1);
-
-        openRequest.onupgradeneeded = function (e) {
-            console.log("running onupgradeneeded");
-            var thisDB = e.target.result;
-
-            if (!thisDB.objectStoreNames.contains(OBJ_STORE)) {
-                thisDB.createObjectStore(OBJ_STORE, {keyPath: "i"});
-            }
-
-        };
-
-        openRequest.onsuccess = function (e) {
-            console.log("Success!");
-            db = e.target.result;
-        };
-
-        openRequest.onerror = function (e) {
-            console.log("Error");
-            console.dir(e);
-        };
-    }
-//            var transaction = db.transaction(OBJ_STORE, "readwrite");
-//            var objectStore = transaction.objectStore(OBJ_STORE);
-//            for (var i in data) {
-//                var request = objectStore.add(data[i]);
-//                request.onsuccess = function (event) {
-//                    // event.target.result == customerData[i].ssn;
-//                    console.log("Added: " + i);
-//                };
-//            }
-}
 classApp.controller('classifyCtrl', ["$scope", "$http", "$interval", function ($scope, $http, $interval) {
     console.log("Controller!");
     var comp;
@@ -56,6 +11,7 @@ classApp.controller('classifyCtrl', ["$scope", "$http", "$interval", function ($
     if (DbWrapper.offline && DbWrapper.lastIdx > 0) {
         DbWrapper.cursor(function(data) {
             console.log("Loaded trace db: " + data.length);
+            console.log(data);
             comp = new PathComparator2(data);
         });
 
@@ -66,7 +22,8 @@ classApp.controller('classifyCtrl', ["$scope", "$http", "$interval", function ($
                 LOW_IDX : DbWrapper.lastIdx
             }
         }).success(function (data) {
-            console.log(data);
+            DbWrapper.addExtra(data);
+            cachedIndex = DbWrapper.lastIdx;
         });
     }
     else {
@@ -81,18 +38,18 @@ classApp.controller('classifyCtrl', ["$scope", "$http", "$interval", function ($
                 if (x.u.length > 1) x.u = JSON.parse("\"" + x.u + "\"");
                 x.L = "\\".concat(x.L);
             });
-            comp = new PathComparator2(data);
+            comp = new PathComparator2(data.data);
 
+            cachedIndex = data.hI;
             if (DbWrapper.offline) {
                 DbWrapper.addBasis(data.data);
-                DbWrapper.setIndex(data.hI);
+                DbWrapper.setIndex(cachedIndex);
             }
         });
     }
 
     $scope.clear = function () {
         builder.clear();
-//        $scope.matches = [];
     };
     $scope.trainLast = function () {
         $scope.train($scope.last);
@@ -117,4 +74,18 @@ classApp.controller('classifyCtrl', ["$scope", "$http", "$interval", function ($
         }, 200);
     };
 
+    var cachedIndex;
+    $scope.flipOnline = function() {
+        console.log("Current offline is: " + DbWrapper.offline);
+        console.log("Cached pre " + cachedIndex);
+        if (DbWrapper.offline) cachedIndex = DbWrapper.lastIdx;
+        console.log("Cached post " + cachedIndex);
+
+        DbWrapper.wantOffline(!DbWrapper.offline);
+
+        if (DbWrapper.offline) {
+            DbWrapper.addBasis(comp.data());
+            if (cachedIndex > DbWrapper.lastIdx) DbWrapper.setIndex(cachedIndex);
+        }
+    }
 }]);

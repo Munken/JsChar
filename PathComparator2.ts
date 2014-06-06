@@ -36,6 +36,10 @@ class PathComparator2 {
         f.s.push(p);
     }
 
+    data() {
+        return this.old;
+    }
+
 }
 
 interface CheckResult2 {

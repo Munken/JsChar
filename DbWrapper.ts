@@ -11,17 +11,23 @@ module DbWrapper {
     var OBJ_STORE = "traces";
     var db;
     var dbWaiters = [];
+    var dbCreated = false;
+
 
     export var offline = !!window.localStorage.getItem(OFFLINE);
     export var lastIdx = window.localStorage.getItem(LAST_INDEX);
     export var isDbSupported:boolean = "indexedDB" in window;
 
     export function wantOffline(b:boolean) {
+        offline = b;
         window.localStorage.setItem(OFFLINE, b ? "TRUE" : "");
 
         console.log("Offline status switched to: " + b);
 
-        if (!b) deleteAll();
+        if (!b) {
+            deleteAll();
+            setIndex(-1);
+        }
     }
 
     export function setIndex(i : number) {
@@ -32,36 +38,15 @@ module DbWrapper {
     }
 
 
-    console.log("Initial online status: " + offline);
+    console.log("Initial offline status: " + offline);
 
-    if (offline && isDbSupported) {
-
-        var openRequest = indexedDB.open(TABLE, 2);
-
-        openRequest.onupgradeneeded = function (e: any) {
-            console.log("Upgrading...");
-            var thisDB = e.target.result;
-            if(!thisDB.objectStoreNames.contains(OBJ_STORE)) {
-                thisDB.createObjectStore(OBJ_STORE, { keyPath: "i" });
-            }
-        };
-
-        openRequest.onsuccess = function (e : any) {
-            console.log("Success!");
-            db = e.target.result;
-
-            _.each(dbWaiters, function(fcn) {fcn();});
-        };
-
-        openRequest.onerror = function (e) {
-            console.log("Error");
-            console.dir(e);
-        };
-
-    }
+    ensureDB();
 
     export function addBasis(samples : ServerSample2[]) {
-        if (db) {
+        console.log("Adding basis!");
+        ensureDB();
+        if (!!db) {
+            console.log("Adding elements!");
             var transaction = db.transaction(OBJ_STORE, "readwrite");
             var store = transaction.objectStore(OBJ_STORE);
 
@@ -76,6 +61,33 @@ module DbWrapper {
         }
     }
 
+    export function addExtra(samples) {
+        if (samples.length == 0) return;
+
+        ensureDB();
+        if (!!db) {
+            console.log("Adding extra");
+            var transaction = db.transaction(OBJ_STORE, "readwrite");
+            var store = transaction.objectStore(OBJ_STORE);
+
+            var max = -1;
+            _.each(samples, function (nSample : any) {
+                max = Math.max(max, nSample.i);
+                console.log(nSample.c);
+                store.get("" + nSample.c).onsuccess = function(e) {
+                    var value= e.target.result;
+                    value.s.push({x: nSample.x, y: nSample.y});
+                };
+            });
+
+
+            transaction.oncomplete = function() {setIndex(Math.max(max, lastIdx));}
+        } else {
+            dbWaiters.push(function() {
+                DbWrapper.addExtra(samples);
+            })
+        }
+    }
 
     export function cursor(fcn : (s: ServerSample2[]) => void) {
         if (db) {
@@ -103,9 +115,39 @@ module DbWrapper {
     }
 
     function deleteAll() {
+        if (!db) return;
         var store = db.transaction([OBJ_STORE], "readwrite")
             .objectStore(OBJ_STORE);
 
         store.clear();
+    }
+
+    function ensureDB() {
+        if (dbCreated) return;
+        if (offline && isDbSupported) {
+            dbCreated = true;
+            var openRequest = indexedDB.open(TABLE, 2);
+
+            openRequest.onupgradeneeded = function (e: any) {
+                console.log("Upgrading...");
+                var thisDB = e.target.result;
+                if(!thisDB.objectStoreNames.contains(OBJ_STORE)) {
+                    thisDB.createObjectStore(OBJ_STORE, { keyPath: "i" });
+                }
+            };
+
+            openRequest.onsuccess = function (e : any) {
+                console.log("Success!");
+                db = e.target.result;
+
+                _.each(dbWaiters, function(fcn) {fcn();});
+            };
+
+            openRequest.onerror = function (e) {
+                console.log("Error");
+                console.dir(e);
+            };
+
+        }
     }
 }
