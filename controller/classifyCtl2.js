@@ -3,6 +3,7 @@ var classApp = angular.module('trainerApp', []);
 classApp.controller('classifyCtrl', ["$scope", "$http", "$interval", function ($scope, $http, $interval) {
     var comp;
     $scope.last = null;
+    $scope.working = false;
     var builder = new PathBuilder2("mCanvas");
     $scope.matches = [];
     $scope.allMatches = [];
@@ -28,6 +29,8 @@ classApp.controller('classifyCtrl', ["$scope", "$http", "$interval", function ($
     };
 
     $scope.check = function () {
+        $scope.matches = [];
+        $scope.working = true;
         var stop = $interval(function () {
             if (!angular.isDefined(comp)) return;
 
@@ -36,7 +39,8 @@ classApp.controller('classifyCtrl', ["$scope", "$http", "$interval", function ($
 //        $scope.matches = $scope.allMatches;
             $scope.matches = $scope.allMatches.slice(0, 10);
             $interval.cancel(stop);
-        }, 200);
+            $scope.working = false;
+        }, 100);
     };
 
     var cachedIndex;
@@ -64,7 +68,7 @@ classApp.controller('classifyCtrl', ["$scope", "$http", "$interval", function ($
 
             $scope.N = data.length;
 
-            alert("Stor " + $scope.N);
+//            alert("Stor " + $scope.N);
         });
 
         $http({
@@ -93,7 +97,7 @@ classApp.controller('classifyCtrl', ["$scope", "$http", "$interval", function ($
                 x.L = "\\".concat(x.L);
             });
             $scope.N = data.data.length;
-            alert("PHP " + $scope.N);
+//            alert("PHP " + $scope.N);
             comp = new PathComparator2(data.data);
 
             cachedIndex = data.hI;

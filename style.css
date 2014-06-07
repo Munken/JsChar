@@ -18,11 +18,11 @@
 
 body {
     /*font-family: Futura, "Trebuchet MS", Arial, sans-serif;*/
-     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
 #wrapper {
-    width: 1100px;
+    width: 939px;
     margin: 0 auto;
 }
 
@@ -30,21 +30,18 @@ body {
     font-size: 3em;
 }
 
-#left {
-    float: left;
-    padding-right: 20px;
-    width: 400px;
-}
-
 #right {
-    float: left;
-    width: 539px;
+    float: right;
+    width: 500px;
     display: inline;
-    position: relative;
 }
 
 .symbolsentry {
     display: table;
+}
+
+ul.symbols{
+    padding: 0;
 }
 
 ul.symbols li {
@@ -78,7 +75,7 @@ ul.symbols li {
     font-size: 1.5em;
 }
 
-.thumbs {
+.thumbsTrainer {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
@@ -90,11 +87,13 @@ ul.symbols li {
     -o-transform: scale(-1, 1);
     -ms-transform: scale(-1, 1);
     transform: scale(-1, 1);
+}
 
+.thumbs {
     font-family: Segoe UI Symbol,fantasy;
 }
 
-.thumbs a {
+.thumbsTrainer a {
     text-decoration: none;
     color : #000000;
 }
@@ -102,9 +101,10 @@ ul.symbols li {
 
 
 #symTrainer {
-    /*position: fixed;*/
-    /*top: 5em;*/
-    /*left: 100px;*/
+    float: left;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    width: 400px;
 }
 
 #mCanvas {
@@ -113,3 +113,26 @@ ul.symbols li {
     height: 400px;
 }
 
+.presentation {
+    width: 400px;
+}
+
+
+
+/* iPhone 4 ----------- */
+@media
+only screen and (-webkit-min-device-pixel-ratio : 1.5),
+only screen and (min-device-pixel-ratio : 1.5) {
+    #wrapper {
+        /*background: red;*/
+        width: 400px;
+        padding: 0 50px 0 50px;
+    }
+
+    #right {
+        float: left;
+        width: 400px;
+        display: run-in;
+        position: relative;
+    }
+}

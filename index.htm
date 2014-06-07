@@ -46,7 +46,7 @@
         All calculation are made on the client in JavaScript.
 
         <h2>How does it work?</h2>
-        It is simple. Just draw and click &#x1f44d; on the correct.
+        It is simple. Just draw and click <span class="thumbs">&#x1f44d;</span> on the correct.
 
         <h2>Symbol X is not recognized</h2>
         If the symbol is missing then drop me a <a href="mailto:mm.munk+textracer@gmail.com">mail</a>.
@@ -63,7 +63,11 @@
 
     <div id="right">
         <!--<input type="text" ng-model="fltr">-->
-        N: {{N}}
+        <div ng-show="working" style="text-align: center">
+            Working, be right back.
+            <br>
+            <img src="pics/spinner.gif">
+        </div>
         <ul class="symbols">
             <li ng-repeat="symbol in matches">
                 <!--<li ng-repeat="symbol in matches | filter:fltr">-->
@@ -80,7 +84,7 @@
                     <div ng-switch-when="2">Textmode & Mathmode</div>
                     </span>
                     </div>
-                    <div class="thumbs" ng-click="train(symbol)">
+                    <div class="thumbsTrainer thumbs" ng-click="train(symbol)">
                         <!--<img src="http://www.clipartbest.com/cliparts/aiq/eL5/aiqeL5aeT.png" width="30px">-->
                         <a href="#">&#x1f44d;</a>
                     </div>
