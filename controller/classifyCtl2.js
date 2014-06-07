@@ -34,7 +34,7 @@ classApp.controller('classifyCtrl', ["$scope", "$http", "$interval", function ($
         var stop = $interval(function () {
             if (!angular.isDefined(comp)) return;
 
-            $('html,body').scrollTop(0);
+//            $('html,body').scrollTop(0);
             $scope.allMatches = comp.checkAll(builder.morphed());
 //        $scope.matches = $scope.allMatches;
             $scope.matches = $scope.allMatches.slice(0, 10);

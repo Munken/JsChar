@@ -4,20 +4,33 @@
 <head lang="en">
     <title>TeχTracer</title>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="viewport" content="width=device-width" />
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="style.css"/>
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="lib/IndexedDBShim.min.js"></script>
     <script src="http://underscorejs.org/underscore-min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.10/angular.min.js"></script>
+    <!--<script src="DbWrapper.js"></script>-->
+    <!--<script src="DTW.js"></script>-->
+    <!--<script src="PathComparator2.js"></script>-->
+    <!--<script src="PathBuilder2.js"></script>-->
+    <!--<script src="controller/classifyCtl2.js"></script>-->
     <script src="min.js"></script>
 
     <!--Google analytics-->
     <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
         ga('create', 'UA-51520675-1', 'textracer.dk');
         ga('send', 'pageview');
@@ -29,36 +42,13 @@
 <div id="wrapper">
     <div class="header">TeχTracer</div>
     <br>
-    <div id="left">
-        <div id="symTrainer">
-            <canvas id="mCanvas" width="400" height="400" ng-mouseup="check()" style="touch-action:none"></canvas>
-            <br>
-            <button ng-click="clear()">Clear</button>
-            <button ng-click="trainLast()" ng-disabled="!last">Train {{last.match.u}}</button>
-            <button ng-click="check()" style="float:right">Check</button>
-        </div>
 
-        <!--<button ng-click="trainLast()" ng-disabled="!last">Train {{last.match.u}}</button>-->
-
-        <h2>What is this?</h2>
-        This an attempt to create a classifier for both LaTeX and unicode symbols.
-        The work is heavily inspired by Daniel Kirsch's visions for <a href="htpp://detexify.kirelabs.org">DeTeXify<sup>3</sup></a>.
-        All calculation are made on the client in JavaScript.
-
-        <h2>How does it work?</h2>
-        It is simple. Just draw and click <span class="thumbs">&#x1f44d;</span> on the correct.
-
-        <h2>Symbol X is not recognized</h2>
-        If the symbol is missing then drop me a <a href="mailto:mm.munk+textracer@gmail.com">mail</a>.
+    <div id="symTrainer">
+        <canvas id="mCanvas" width="400" height="400" ng-mouseup="check()" style="touch-action:none"></canvas>
         <br>
-        If your drawing is just not recognized then you can train it yourself <a href="Trainer.html">here</a>.
-
-        <h2>I want to use this everywhere!</h2>
-        Well despair no more. Just push this button.
-        <button ng-click="flipOnline()" ng-switch="offline">
-            <div ng-switch-when="false">Enable offline mode</div>
-            <div ng-switch-when="true">Disable offline mode</div>
-        </button>
+        <button ng-click="clear()">Clear</button>
+        <button ng-click="trainLast()" ng-disabled="!last">Train {{last.match.u}}</button>
+        <button ng-click="check()" style="float:right">Check</button>
     </div>
 
     <div id="right">
@@ -92,7 +82,32 @@
             </li>
         </ul>
 
-        <button ng-hide="!matches.length || allMatches == matches" ng-click="matches = allMatches" style="float:right">Show all</button>
+        <button ng-hide="!matches.length || allMatches == matches" ng-click="matches = allMatches" style="float:right">
+            Show all
+        </button>
+    </div>
+
+    <div class="presentation">
+        <br>
+        <h2>What is this?</h2>
+        This an attempt to create a classifier for both LaTeX and unicode symbols.
+        The work is heavily inspired by Daniel Kirsch's visions for <a href="htpp://detexify.kirelabs.org">DeTeXify<sup>3</sup></a>.
+        All calculation are made on the client in JavaScript.
+
+        <h2>How does it work?</h2>
+        It is simple. Just draw and click <span class="thumbs">&#x1f44d;</span> on the correct.
+
+        <h2>Symbol X is not recognized</h2>
+        If the symbol is missing then drop me a <a href="mailto:mm.munk+textracer@gmail.com">mail</a>.
+        <br>
+        If your drawing is just not recognized then you can train it yourself <a href="Trainer.html">here</a>.
+
+        <h2>I want to use this everywhere!</h2>
+        Well despair no more. Just push this button.
+        <button ng-click="flipOnline()" ng-switch="offline">
+            <div ng-switch-when="false">Enable offline mode</div>
+            <div ng-switch-when="true">Disable offline mode</div>
+        </button>
     </div>
 </div>
 </body>

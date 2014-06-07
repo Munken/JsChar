@@ -22,7 +22,7 @@ body {
 }
 
 #wrapper {
-    width: 939px;
+    width: 1000px;
     margin: 0 auto;
 }
 
@@ -33,7 +33,7 @@ body {
 #right {
     float: right;
     width: 500px;
-    display: inline;
+    display: inline-block;
 }
 
 .symbolsentry {
@@ -42,6 +42,7 @@ body {
 
 ul.symbols{
     padding: 0;
+    margin: 2px;
 }
 
 ul.symbols li {
@@ -57,7 +58,7 @@ ul.symbols li {
     display: table-cell;
     vertical-align: middle;
     text-align: left;
-    width: 250px;
+    width: 60%;
     padding-left: 1em;
 }
 
@@ -65,7 +66,7 @@ ul.symbols li {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
-    width: 150px;
+    width: 35%;
     font-size: 3.5em;
     /*font-family: CMSY10, CMEX10, Symbol, Times,sans-serif;*/
     font-family: MJX_Math, MJX_Main, Segoe UI Symbol, "Palatino Linotype", "Book Antiqua", Palatino, serif;
@@ -79,7 +80,7 @@ ul.symbols li {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
-    width: 50px;
+    width: 15%;
     font-size: 3.5em;
 
     -moz-transform: scale(-1, 1);
@@ -121,18 +122,19 @@ ul.symbols li {
 
 /* iPhone 4 ----------- */
 @media
-only screen and (-webkit-min-device-pixel-ratio : 1.5),
-only screen and (min-device-pixel-ratio : 1.5) {
+all and (max-width: 767px),
+all and (-webkit-min-device-pixel-ratio : 1.5),
+all and (min-device-pixel-ratio : 1.5) {
     #wrapper {
         /*background: red;*/
         width: 400px;
-        padding: 0 50px 0 50px;
+        padding: 0 25px 0 25px;
     }
 
     #right {
-        float: left;
+        float: right;
         width: 400px;
-        display: run-in;
+        display: inline;
         position: relative;
     }
 }
